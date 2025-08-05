@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+    <style>/* Reset and Base Styles */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: #f4f6f8;
+  color: #333;
+  line-height: 1.6;
+  padding: 20px;
+}
+
+/* Header & Navigation */
+header {
+  background-color: #ffffff;
+  padding: 20px;
+  margin-bottom: 30px;
+  border-radius: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+header h1 {
+  font-size: 1.8rem;
+  color: #222;
+  margin-bottom: 10px;
+}
+
+nav a {
+  margin-right: 15px;
+  text-decoration: none;
+  color: #0077cc;
+  font-weight: 500;
+}
+
+nav a:hover {
+  text-decoration: underline;
+}
+
+/* Section Headings */
+section h2 {
+  font-size: 1.5rem;
+  margin-bottom: 15px;
+  color: #333;
+}
+
+/* Input & Form Elements */
+input[type="text"],
+input[type="email"],
+textarea {
+  width: 100%;
+  padding: 10px;
+  margin: 8px 0 15px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 1rem;
+}
+
+button {
+  background-color: #0077cc;
+  color: white;
+  padding: 10px 18px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background-color 0.2s ease-in-out;
+}
+
+button:hover {
+  background-color: #005fa3;
+}
+
+/* Job Cards */
+.job-card {
+  background: #fff;
+  padding: 20px;
+  margin-bottom: 15px;
+  border-radius: 10px;
+  border-left: 4px solid #0077cc;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  transition: transform 0.1s ease-in-out;
+}
+
+.job-card:hover {
+  transform: translateY(-2px);
+}
+
+.job-card a {
+  text-decoration: none;
+  color: #333;
+  font-size: 1.1rem;
+  font-weight: bold;
+}
+
+.job-card a:hover {
+  color: #0077cc;
+}
+
+/* Search Bar */
+#search {
+  width: 100%;
+  max-width: 500px;
+  padding: 12px;
+  font-size: 1rem;
+  margin: 20px 0;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+}
+
+/* Responsive Layout */
+@media (max-width: 768px) {
+  body {
+    padding: 15px;
+  }
+
+  header h1 {
+    font-size: 1.5rem;
+  }
+
+  nav a {
+    display: inline-block;
+    margin-bottom: 8px;
+  }
+
+  .job-card {
+    padding: 15px;
+  }
+}
+
+</style>
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width">
+  <title>Job Board Home</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header><h1>Welcome to Our Job Board</h1><nav><a href="listings.html">Browse Jobs</a> | <a href="employer.html">Employer</a> | <a href="candidate.html">Candidate</a></nav></header>
+  <section id="featured">
+    <h2>Featured Listings</h2><div id="featured-jobs"></div>
+  </section>
+  <script src="main.js"></script><script>renderFeaturedJobs();</script>
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="en">
+    <style>body { font-family: Arial; margin:20px; }
+header nav a { margin-right:10px; text-decoration:none;color:#0077cc; }
+div.job-card { border:1px solid #ddd; padding:10px; margin:10px 0; }
+.input, textarea { width:100%; padding:8px; margin:5px 0;}
+button { padding:8px 12px; background:#0077cc; color:white; border:none; cursor:pointer; }
+button:hover { background:#005fa3;}
+</style>
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width">
+<title>Job Listings</title><link rel="stylesheet" href="styles.css"></head>
+<body>
+  <header><h1>All Job Openings</h1><nav><a href="index.html">Home</a></nav></header>
+  <input type="text" id="search" placeholder="Search jobs…">
+  <div id="jobs-list"></div>
+  <script src="main.js"></script>
+  <script>
+    renderJobs();
+    document.getElementById('search').addEventListener('input', e => renderJobs(e.target.value));
+  </script>
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width">
+<title>Job Detail</title><link rel="stylesheet" href="styles.css"></head>
+<body>
+  <header><h1>Job Detail</h1><nav><a href="listings.html">Back to listings</a></nav></header>
+  <div id="job-detail"></div>
+  <h3>Apply for this job</h3>
+  <form id="apply-form">
+    <input type="text" id="applicant-name" placeholder="Your Name" required><br>
+    <input type="email" id="applicant-email" placeholder="Your Email" required><br>
+    <textarea id="applicant-resume" placeholder="Paste your resume…" rows="5"></textarea><br>
+    <button type="submit">Submit Application</button>
+  </form>
+  <script src="main.js"></script>
+  <script>
+    const jobId = new URLSearchParams(location.search).get('id');
+    renderJobDetail(jobId);
+    document.getElementById('apply-form').onsubmit = e => {
+      e.preventDefault();
+      applyToJob(jobId,
+        document.getElementById('applicant-name').value,
+        document.getElementById('applicant-email').value,
+        document.getElementById('applicant-resume').value
+      );
+    };
+  </script>
+</body>
+</html>
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width">
+<title>Employer Dashboard</title><link rel="stylesheet" href="styles.css"></head><body>
+<header><h1>Employer Dashboard</h1><nav><a href="index.html">Home</a></nav></header>
+<section><h2>Post a Job</h2><form id="job-form">
+  <input type="text" id="job-title" placeholder="Job Title" required><br>
+  <input type="text" id="job-company" placeholder="Company Name" required><br>
+  <textarea id="job-desc" placeholder="Job Description" rows="5"></textarea><br>
+  <button type="submit">Add Job</button>
+</form></section>
+<section><h2>Your Jobs</h2><div id="employer-jobs"></div></section>
+<script src="main.js"></script>
+<script>
+  renderEmployerJobs();
+  document.getElementById('job-form').onsubmit = e => {
+    e.preventDefault();
+    addJob(
+      document.getElementById('job-title').value,
+      document.getElementById('job-company').value,
+      document.getElementById('job-desc').value
+    );
+  };
+</script>
+</body></html>
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width">
+<title>Candidate Dashboard</title><link rel="stylesheet" href="styles.css"></head><body>
+<header><h1>Candidate Dashboard</h1><nav><a href="index.html">Home</a></nav></header>
+<section><h2>Your Applications</h2><div id="candidate-apps"></div></section>
+<script src="main.js"></script>
+<script>
+  renderCandidateApplications();
+</script>
+</body></html>
